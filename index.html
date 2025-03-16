@@ -13,7 +13,7 @@
 
     <script>
         function getUserId() {
-            liff.init({ liffId:"https://miniapp.line.me/2007067302-Z7wymQdx" })  // LINEミニアプリのLIFF IDを入力
+            liff.init({ liffId:https://miniapp.line.me/2007067302-Z7wymQdx })  // LINEミニアプリのLIFF IDを入力
                 .then(() => liff.getProfile())
                 .then(profile => {
                     document.getElementById("userId").innerText = "UserID: " + profile.userId;
