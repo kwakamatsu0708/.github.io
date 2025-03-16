@@ -3,35 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LINE Mini App UserID</title>
+    <title>LIFF Debug</title>
     <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
 </head>
 <body>
-    <h1>LINE Mini App UserID 取得</h1>
+    <h1>LIFF Debug Mode</h1>
     <button onclick="getUserId()">UserIDを取得</button>
     <p id="userId"></p>
+    <pre id="log" style="background: #f4f4f4; padding: 10px; border-radius: 5px;"></pre>
 
     <script>
+        function logMessage(message) {
+            document.getElementById("log").innerText += message + "\n";
+        }
+
         async function getUserId() {
-            const LIFF_ID = "2007067302-Z7wymQdx";  // ✅ LIFF IDを正しく記述
+            const LIFF_ID = "YOUR_LIFF_ID";  // ここに自分の LIFF ID を入れる
 
             try {
-                console.log("LIFF初期化中...");
+                logMessage("LIFF初期化中...");
                 await liff.init({ liffId: LIFF_ID });
-                console.log("LIFF初期化完了");
+                logMessage("LIFF初期化完了");
 
                 if (!liff.isLoggedIn()) {
-                    console.log("ログインしていません。ログインします...");
+                    logMessage("ログインしていません。ログインします...");
                     liff.login();
                     return;
                 }
 
                 const profile = await liff.getProfile();
-                console.log("UserID取得成功:", profile.userId);
+                logMessage("UserID取得成功: " + profile.userId);
                 document.getElementById("userId").innerText = "UserID: " + profile.userId;
             } catch (error) {
-                console.error("LIFF Error:", error);
-                document.getElementById("userId").innerText = "エラー: " + error.message;
+                logMessage("エラー発生: " + error.message);
             }
         }
     </script>
